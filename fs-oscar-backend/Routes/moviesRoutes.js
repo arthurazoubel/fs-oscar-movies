@@ -1,25 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const moviesModel = require('../Models/moviesModel')
+const {gettAllMovies, getSingleMovie, addNewMovie, updateMovie, deleteMovie} = require('../Controllers/moviesControllers')
 
 
-router.get('/allmovies', (req, res) => {
-    res.send('SENDING ALL THE MOVIES FROM THE DATABASE')
-});
+router.get('/allmovies', gettAllMovies);
 
-router.get('/:id', (req, res) => {
-    res.send('GETTING SOME MOVIE FROM THE DATABASE')
-});
+router.get('/:id', getSingleMovie);
 
-router.post('/newmovie', (req, res) => {
-    res.send('POSTING SOME MOVIE INTO THE DATABASE')
-});
+router.post('/newmovie', addNewMovie);
 
-router.put('/:id', (req, res) => {
-    res.send('UPDATING SOME MOVIE FROM THE DATABASE')
-});
+router.put('/:id', updateMovie);
 
-router.delete('/:id', (req, res) => {
-    res.send('DELETING SOME MOVIE FROM THE DATABASE')
-});
+router.delete('/:id', deleteMovie);
 
 module.exports = router

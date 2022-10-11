@@ -1,8 +1,11 @@
 import React from 'react'
 import { Box, FormControl, FormLabel, Input, FormHelperText, Container, Button, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
+
+    const navigate = useNavigate()
 
     const [newUser, setNewUser] = useState({
         name:'',
@@ -21,6 +24,7 @@ function Signup() {
     function createUser() {
         if(newUser.password === newUser.retypepassword) {
             console.log('Passwords matched')
+            navigate('/')
         }
         else {
             console.log("Passwords don't matched")
