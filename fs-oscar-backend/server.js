@@ -2,11 +2,10 @@ require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose')
 const PORT = 9000
-
-
-
 const moviesRoutes = require('./Routes/moviesRoutes')
 const usersRoutes = require('./Routes/usersRoutes')
+
+
 
 // Creating an Express App
 const app = express();
@@ -17,14 +16,11 @@ const app = express();
 app.use(express.json())
 
 
-/* app.use((req, res, next) => {
-    console.log(req.path, req.method)
-    next()
-}) */
 
 // Creating routes
 app.use('/movies', moviesRoutes)
 app.use('/users', usersRoutes)
+
 
 
 // Connect to the DB

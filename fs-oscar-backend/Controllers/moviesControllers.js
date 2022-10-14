@@ -1,8 +1,10 @@
 const moviesModel = require("../Models/moviesModel");
 
+
+
 // GET ALL MOVIES
 const gettAllMovies = async (req, res) => {
-    const allMovies = await moviesModel.find({}).sort({title: -1})
+    const allMovies = await moviesModel.find({}).sort({title: 1})
     try {
         res.status(200).json(allMovies)
     }
@@ -10,6 +12,8 @@ const gettAllMovies = async (req, res) => {
         res.status(400).json({error: error.message})
     }
 }
+
+
 
 
 // GET A SINGLE MOVIE
@@ -22,12 +26,14 @@ const getSingleMovie = async (req, res) => {
     } else {
         try {
             res.status(200).json(movie)
-        }
+        } 
         catch (error) {
             res.status(400).json({error: error.message})
         } 
     }
 }
+
+
 
 // ADD A MOVIE
 const addNewMovie = async (req, res) => {
@@ -41,15 +47,45 @@ const addNewMovie = async (req, res) => {
     }
 }
 
+
+
 // UPDATE A MOVIE
 const updateMovie = async (req, res) => {
-    res.send('UPDATING SOME MOVIE FROM THE DATABASE')
+    const {id} = req.params;
+    const movie = await moviesModel.findOneAndUpdate({_id: id}, {
+        ...req.body
+    })
+
+    if(!movie) {
+        return res.status(400).jason({error: 'This movie is not on our database'})
+    } else {
+        try {
+            res.status(200).json(movie)
+        } 
+        catch (error) {
+            res.status(400).json({error: error.message})
+        } 
+    }
+
 }
 
-// DELETE A MOVIE
 
+
+// DELETE A MOVIE
 const deleteMovie = async (req, res) => {
-    res.send('DELETING SOME MOVIE FROM THE DATABASE')
+    const {id} = req.params
+    const movie = await moviesModel.findByIdAndDelete({_id: id})
+
+    if(!movie) {
+        return res.status(400).jason({error: 'This movie is not on our database'})
+    } else {
+        try {
+            res.status(200).json('MOVIE DELETED')
+        } 
+        catch (error) {
+            res.status(400).json({error: error.message})
+        } 
+    }
 }
 
 
